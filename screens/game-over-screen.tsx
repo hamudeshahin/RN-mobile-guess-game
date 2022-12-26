@@ -1,5 +1,13 @@
 import { FC } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+  ScrollView,
+} from "react-native";
 import PrimaryButton, { IOnPress } from "../components/ui/primary-button";
 import Title from "../components/ui/title";
 import Colors from "../utils/colors";
@@ -15,26 +23,42 @@ const GameOverScreen: FC<IProps> = ({
   userNumber,
   roundsNumber,
 }) => {
+  const { height, width } = useWindowDimensions();
+
+  let imageSize = 300;
+  if (width < 380) imageSize = 150;
+  if (height < 400) imageSize = 80;
+
+  const imageStyle = {
+    width: imageSize,
+    height: imageSize,
+    borderRadius: imageSize / 2,
+  };
+
   return (
-    <View style={styles.rootContainer}>
-      <Title>Game Over !</Title>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("../assets/imgs/success.png")}
-        />
+    <ScrollView style={{ flex: 1 }}>
+      <View style={styles.rootContainer}>
+        <Title>Game Over !</Title>
+        <View style={[imageStyle, styles.imageContainer]}>
+          <Image
+            style={styles.image}
+            source={require("../assets/imgs/success.png")}
+          />
+        </View>
+        <View>
+          <Text style={styles.summaryText}>
+            Your phone needed{" "}
+            <Text style={styles.highlight}>{roundsNumber}</Text> rounds to guess
+            the number <Text style={styles.highlight}>{userNumber}</Text>
+          </Text>
+        </View>
+        <PrimaryButton onPress={onNewGame}>Start New Game</PrimaryButton>
       </View>
-      <View>
-        <Text style={styles.summaryText}>
-          Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
-          rounds to guess the number{" "}
-          <Text style={styles.highlight}>{userNumber}</Text>
-        </Text>
-      </View>
-      <PrimaryButton onPress={onNewGame}>Start New Game</PrimaryButton>
-    </View>
+    </ScrollView>
   );
 };
+
+// const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -45,9 +69,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageContainer: {
-    width: 300,
-    height: 300,
-    borderRadius: 150,
+    // width: deviceWidth < 390 ? 150 : 300,
+    // height: deviceWidth < 390 ? 150 : 300,
+    // borderRadius: deviceWidth < 390 ? 75 : 150,
     borderWidth: 3,
     borderColor: Colors.primary800,
     overflow: "hidden",

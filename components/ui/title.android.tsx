@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Platform } from "react-native";
 
 interface IProps {
   children?: string | ReactNode | ReactNode[];
@@ -15,9 +15,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     textAlign: "center",
-    borderWidth: 2,
+    // borderWidth: Platform.OS === "ios" ? 2 : 1,
+    // borderWidth: Platform.select({ ios: 2, android: 1 }),
+    borderWidth: 1,
     borderColor: "white",
     padding: 12,
+    maxWidth: "80%",
+    width: 300,
   },
 });
 

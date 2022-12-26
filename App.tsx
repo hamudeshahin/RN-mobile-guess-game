@@ -64,7 +64,7 @@ const App: FC = () => {
       colors={[Colors.primary800, Colors.yellow700]}
       style={styles.rootScreen}
     >
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <ImageBackground
         source={require("./assets/imgs/background.png")}
         resizeMode="cover"

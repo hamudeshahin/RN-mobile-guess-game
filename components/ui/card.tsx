@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Colors from "../../utils/colors";
 
 export interface IProps {
@@ -10,11 +10,13 @@ const Card: FC<IProps> = ({ children }) => {
   return <View style={styles.container}>{children}</View>;
 };
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 28,
+    marginTop: deviceWidth < 390 ? 12 : 36,
     marginHorizontal: 24,
     padding: 16,
     backgroundColor: Colors.primary500,

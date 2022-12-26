@@ -5,6 +5,7 @@ import {
   Pressable,
   View,
   GestureResponderEvent,
+  Dimensions,
 } from "react-native";
 import Colors from "../../utils/colors";
 
@@ -34,6 +35,8 @@ const PrimaryButton: FC<IPropsButtons> = ({
     </View>
   );
 };
+
+const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   buttonOuterContainer: {
